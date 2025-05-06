@@ -1,0 +1,65 @@
+login into azure QA vm -
+ssh -i "C:\Users\Pratham Vijayvargiya\Downloads\ubuntu-server.pem" azureuser@20.29.56.44
+
+
+
+manual deployment- 
+./ba_pullScript.sh
+
+
+
+backend logs - 
+pm2 logs
+
+
+restart pm2 -
+pm2 restart all
+
+
+ngnix logs -
+sudo tail -f /var/log/nginx/access.log
+
+
+
+
+check cpu usage -
+htop
+
+
+
+
+DB Restart if table locks -
+sudo systemctl restart postgresql@16-main
+
+
+DB status check -
+sudo systemctl status postgresql@16-main
+
+
+nginx stop/start commantd - 
+sudo systemctl stop/start nginx
+
+
+ngnix related files-
+
+	
+
+
+frontend/backend folders
+
+cd qa_builds/frontend
+cd qa_builds/backend
+
+cat filename (to read)
+sudo nano (to edit)
+
+
+
+
+Pm2 running mode - 
+Go in to server.js file path
+pm2 stop all
+pm2 kill
+pm2 start server.js (for fork mode) and pm2 start server.js -i max (for cluster mode)
+pm2 save
+pm2 startup

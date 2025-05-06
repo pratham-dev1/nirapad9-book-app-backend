@@ -1,0 +1,78 @@
+Atomicity - 
+
+If we are inserting any or multiple document and in between it fails to store Suppose if we have multiple document to store and each document has three properties inside the document then it starts storing each document one by one in db and suppose it starts to add properties one by one of each document - so let's assume it is storing 4rth document and stored 2 properties of 4th document now adding 3rd property and suddenly database down then it will rollback only that document not all
+
+Summary - It ensures that it will check per document level - either store whole document or rollback that document if any error in db
+
+
+Index- 
+Index is used for faster retrieval of data but there are some downside in index - it may take time on insert operation because whenever you insert data then it also update index with  newly created document -- if you create index on multiple columns on same table/collection then it may take more time to update index with newly inserted record- that's why we should not always add indexing on each and every column/key
+
+MongoDB manages Default Index on _id key
+
+we should not use index if our find query is about to give a large portion of data otherwise it will give more time as compared to normal fetching through collection without index
+
+Single Field Index - 
+Index created on one field in asc or desc order
+
+Compound Index -
+Index created with more than one key called compound or composite index
+suppose you have two field name and age and if you create compound index also known as (composite index) . and in create index command if you put name key first and then age -- that means name index can also be used alone but not age index that means if you query with filter of name then it will consider index first but it will not consider in case of age filter....but it will work together - and if you also want to use age index then you have to create one more index for age
+
+
+Partial Index - 
+Sometimes we can use index on some values of particular column - e.g - If we have one collection having age and gender and if we are creating index on age then we can also specify that we want to create index on age with 'male' gender or age greater than 60 or any other condition - so it will create smaller index size (this can be useful if we mostly want data where filter is gender = male or age greater than 60 respectively ( Note - We have to specify filter in find query then only it will hit the index to find data)
+
+Time to live (TTL) index - 
+
+This index can only be created on date field - there we can set expiry actually - example - i have one collection with 2 fields name and createdAt then i can create a index on createdAt key and set some expiry in the config object then it will delete that record on the set expiry date from index as well as collection
+Academind said that this can be useful when we want to store session kind off 
+
+
+Multi-keys Index - (syntax is same as single-field index- it automatically make an array field index as multi key index\)
+If you create index on array field then it is called multi-key index and we can not create compound index of multiple array fields - we can create compound index with multiple fields but it should only have one array field
+
+
+Text Index -
+It is used for searching text - we can use regex as well in find query but that is not recommended - we always should use text index to find string in db.......... and find query has different syntax for this (check syntax on google)
+
+
+Note - 
+1. we can have text index only on one field in a collection - so this means one text index per collection
+2. we an perform sorting as well like if a string matches more keyword then it will give high score to that document - means more keyword matched in string the more score will get the document (check syntax on google )
+3. we can not create combined text index - for example - we will merge two text field while creating ndex so it will merge both fields text internally to search
+
+
+
+-------------------------------------------------
+
+One important thing about index
+
+we can create index in foreground and background
+If we create index in foreground then it will lock the collection while creating index (but it is faster in creating index) - (Used when you have small datasets or low traffic on app)
+If we create index in background (but it is slower in creating index)  - (It is By default and developer Uses this when you have large datasets or high traffic on app)
+
+
+
+
+Sometime we don't use index only for just retrieving data but for sorting - because we know in index it stores in asc/desc order - so index is useful to sort data as well
+
+
+
+
+
+Capped collections => 
+Capped collections are those where we limit with size or number of document can be stored
+suppose i have one capped collection and I set limit there for 3 document then if i try to store 4th document then it will remove my 1st document and store 4th one
+
+
+replica sets => 
+We used replica sets as a backup db - It keep copies of primary db and if primary db fails then backup db replaces the primary db until primary db up
+
+
+Horizontal scaling - Increase number of instances
+Vertical scaling - Increase capacity of single instance
+
+
+Sharding - Sharding is breaking up a big database into smaller pieces (called shards). This helps MongoDB handle huge amounts of data and improves performance.
+

@@ -1,0 +1,10 @@
+git setup with new project
+
+1) cd /path/to/your/project
+2) git init
+3) git add .
+4) git commit -m "Initial commit"
+5) git remote add origin https://github.com/yourusername/your-repo.git
+6) git push -u origin master
+7) git checkout -b new-branch-name (To create new branch and switch to that branch)
+8) git push -u origin new-branch-name

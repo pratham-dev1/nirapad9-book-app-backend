@@ -1,0 +1,27 @@
+run redis container-
+docker run --name redis -d -p 6379:6379 redis
+
+verify redis is connected-
+docker exec -it redis redis-cli ping
+
+check all container that is running - 
+docker ps
+
+Access Redis CLI inside the container - 
+docker exec -it redis redis-cli  (Replace redis with the actual container name if different)
+
+List all keys in redis - 
+KEYS *
+
+View a specific key's value-
+GET your_key_name
+
+Delete a single key -
+DEL your_key_name
+
+
+Delete all keys-
+FLUSHALL
+
+
+
